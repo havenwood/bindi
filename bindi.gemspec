@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-require File.expand_path('../lib/namaste/version', __FILE__)
+require File.expand_path('../lib/bindi/version', __FILE__)
 
 Gem::Specification.new do |gem|
   gem.authors       = ['Havenwood']
@@ -13,7 +13,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.name          = 'bindi'
   gem.require_paths = ['lib']
-  gem.version       = Namaste::VERSION
+  gem.version       = Bindi::VERSION
   
   gem.add_development_dependency 'ohm'
   gem.add_runtime_dependency 'ohm'
