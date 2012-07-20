@@ -1,6 +1,6 @@
 # Bindi
 
-[Bindi](https://github.com/Havenwood/bindi) is a DSL for storing marshallable Ruby Objects in [Redis](http://redis.io/) using [Ohm](http://ohm.keyvalue.org/).
+[Bindi](https://github.com/Havenwood/bindi) is a DSL for storing marshallable Ruby Objects in [Redis](http://redis.io/) using [Ohm](http://ohm.keyvalue.org/) (Object-hash mapping gem for Redis).
 
 ## Installation
 
