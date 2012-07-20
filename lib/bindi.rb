@@ -1,7 +1,7 @@
 require 'ohm'
-require 'namaste/version'
+require 'bindi/version'
 
-module Namaste
+module Bindi
   class << self
     def connect
       Ohm.connect
