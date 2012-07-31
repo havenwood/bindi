@@ -38,14 +38,10 @@ module Bindi
     end
     
     def inspect
-      Ohm.redis.all
+      Ohm.redis.inspect
     end
 
     alias to_s inspect
-
-    def inspect_redis
-      Ohm.redis.inspect
-    end
 
     def key? key
       Ohm.redis.exists key
