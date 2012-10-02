@@ -50,7 +50,7 @@ module Bindi
     alias has_key key?
 
     def keys
-      Ohm.redis.keys
+      Ohm.redis.keys.map &:to_sym
     end
   end
 end
