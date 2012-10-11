@@ -3,34 +3,37 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
     <title>Bindi by Havenwood</title>
   </head>
 
   <body>
+    <div id="container">
+      <div class="inner">
 
-    <header>
-      <div class="container">
-        <h1>Bindi</h1>
-        <h2>Bindi is a DSL for storing marshallable Ruby Objects in Redis using Ohm.</h2>
+        <header>
+          <h1>Bindi</h1>
+          <h2>Bindi is a DSL for storing marshallable Ruby Objects in Redis using Ohm.</h2>
+        </header>
 
-        <section id="downloads">
-          <a href="https://github.com/Havenwood/bindi/zipball/master" class="btn">Download as .zip</a>
-          <a href="https://github.com/Havenwood/bindi/tarball/master" class="btn">Download as .tar.gz</a>
-          <a href="https://github.com/Havenwood/bindi" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/Havenwood/bindi/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/Havenwood/bindi/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/Havenwood/bindi" id="view-on-github" class="button"><span>View on GitHub</span></a>
         </section>
-      </div>
-    </header>
 
-    <div class="container">
-      <section id="main_content">
-        <h1>Bindi</h1>
+        <hr>
 
-<p><a href="https://github.com/Havenwood/bindi">Bindi</a> is a DSL for storing marshallable Ruby Objects in <a href="http://redis.io/">Redis</a> using <a href="http://ohm.keyvalue.org/">Ohm</a>.</p>
+        <section id="main_content">
+          <h1>Bindi</h1>
+
+<p><a href="https://github.com/Havenwood/bindi">Bindi</a> is a DSL for storing marshallable Ruby Objects in <a href="http://redis.io/">Redis</a> using <a href="http://ohm.keyvalue.org/">Ohm</a> (Object-hash mapping gem for Redis).</p>
 
 <h2>Installation</h2>
 
@@ -58,8 +61,7 @@
 
 <h3>The Basics</h3>
 
-<div class="highlight">
-<pre><span class="nb">require</span> <span class="s1">'bindi'</span>
+<div class="highlight"><pre><span class="nb">require</span> <span class="s1">'bindi'</span>
  <span class="c1">#=&gt; true</span>
 
 <span class="no">Bindi</span><span class="o">.</span><span class="n">connect</span>
@@ -73,14 +75,11 @@
  <span class="c1">#=&gt; {:alabama=&gt;"Star Blue Quartz", ...</span>
 
 <span class="nb">exit</span>
-</pre>
-</div>
-
+</pre></div>
 
 <p>Your Ruby Object is now stored in Redis.</p>
 
-<div class="highlight">
-<pre><span class="nb">require</span> <span class="s1">'bindi'</span>
+<div class="highlight"><pre><span class="nb">require</span> <span class="s1">'bindi'</span>
  <span class="c1">#=&gt; true</span>
 
 <span class="no">Bindi</span><span class="o">.</span><span class="n">keys</span>
@@ -88,14 +87,11 @@
 
 <span class="no">Bindi</span><span class="o">[</span><span class="ss">:state_gemstones</span><span class="o">]</span>
  <span class="c1">#=&gt; #=&gt; {:alabama=&gt;"Star Blue Quartz", ...</span>
-</pre>
-</div>
-
+</pre></div>
 
 <h3>Ruby Hash Methods</h3>
 
-<div class="highlight">
-<pre><span class="no">Bindi</span><span class="o">[</span><span class="ss">:key</span><span class="o">]</span> <span class="o">=</span> <span class="s1">'value'</span>
+<div class="highlight"><pre><span class="no">Bindi</span><span class="o">[</span><span class="ss">:key</span><span class="o">]</span> <span class="o">=</span> <span class="s1">'value'</span>
  <span class="c1">#=&gt; "value"</span>
 
 <span class="no">Bindi</span><span class="o">[</span><span class="ss">:key</span><span class="o">]</span>
@@ -120,21 +116,16 @@
 
 <span class="no">Bindi</span><span class="o">.</span><span class="n">keys</span>
  <span class="c1">#=&gt; "key"</span>
-</pre>
-</div>
-
+</pre></div>
 
 <h3>Redis Helper Methods</h3>
 
-<div class="highlight">
-<pre><span class="no">Bindi</span><span class="o">.</span><span class="n">info</span>
+<div class="highlight"><pre><span class="no">Bindi</span><span class="o">.</span><span class="n">info</span>
  <span class="c1">#=&gt; {"redis_version"=&gt;"2.4.15", ...</span>
 
 <span class="no">Bindi</span><span class="o">.</span><span class="n">inspect_redis</span>
  <span class="c1">#=&gt; "#&lt;Redis client v2.2.2 connected to redis://127.0.0.1:6379 ..."</span>
-</pre>
-</div>
-
+</pre></div>
 
 <h2>Contributing</h2>
 
@@ -143,9 +134,15 @@
 <li>Commit your changes</li>
 <li>Pull request</li>
 </ol>
-      </section>
-    </div>
+        </section>
 
-    
+        <footer>
+          Bindi is maintained by <a href="https://github.com/Havenwood">Havenwood</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
   </body>
 </html>
