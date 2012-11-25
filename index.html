@@ -33,7 +33,7 @@
         <section id="main_content">
           <h1>Bindi</h1>
 
-<p><a href="https://github.com/Havenwood/bindi">Bindi</a> is a DSL for storing marshallable Ruby Objects in <a href="http://redis.io/">Redis</a> using <a href="http://ohm.keyvalue.org/">Ohm</a> (Object-hash mapping gem for Redis).</p>
+<p><a href="https://github.com/Havenwood/bindi">Bindi</a> is a DSL for storing serializable Ruby Objects in <a href="http://redis.io/">Redis</a> using <a href="http://ohm.keyvalue.org/">Ohm</a>.</p>
 
 <h2>Installation</h2>
 
@@ -64,13 +64,13 @@
 <div class="highlight"><pre><span class="nb">require</span> <span class="s1">'bindi'</span>
  <span class="c1">#=&gt; true</span>
 
-<span class="no">Bindi</span><span class="o">.</span><span class="n">connect</span>
- <span class="c1">#=&gt; nil</span>
+<span class="n">bindi</span> <span class="o">=</span> <span class="no">Bindi</span><span class="o">.</span><span class="n">new</span> <span class="no">YAML</span> <span class="c1"># Choose between Marshal, YAML, JSON, etcetera for serializing.</span>
+<span class="c1">#=&gt; #&lt;Redis client v3.0.2 for redis://127.0.0.1:6379/0&gt;</span>
 
-<span class="no">Bindi</span><span class="o">[</span><span class="ss">:state_gemstones</span><span class="o">]</span> <span class="o">=</span> <span class="p">{</span> <span class="n">alabama</span><span class="p">:</span> <span class="s1">'Star Blue Quartz'</span><span class="p">,</span>
-                              <span class="n">alaska</span><span class="p">:</span> <span class="s1">'Nephrite Jade'</span><span class="p">,</span> 
-                              <span class="n">arizona</span><span class="p">:</span> <span class="s1">'Turquoise'</span><span class="p">,</span> 
-                              <span class="n">arkansas</span><span class="p">:</span> <span class="s1">'Diamond'</span> <span class="p">}</span>
+<span class="n">bindi</span><span class="o">[</span><span class="ss">:state_gemstones</span><span class="o">]</span> <span class="o">=</span> <span class="p">{</span> <span class="n">alabama</span><span class="p">:</span> <span class="s1">'Star Blue Quartz'</span><span class="p">,</span>
+                            <span class="n">alaska</span><span class="p">:</span> <span class="s1">'Nephrite Jade'</span><span class="p">,</span> 
+                            <span class="n">arizona</span><span class="p">:</span> <span class="s1">'Turquoise'</span><span class="p">,</span> 
+                            <span class="n">arkansas</span><span class="p">:</span> <span class="s1">'Diamond'</span> <span class="p">}</span>
 
  <span class="c1">#=&gt; {:alabama=&gt;"Star Blue Quartz", ...</span>
 
@@ -82,48 +82,51 @@
 <div class="highlight"><pre><span class="nb">require</span> <span class="s1">'bindi'</span>
  <span class="c1">#=&gt; true</span>
 
-<span class="no">Bindi</span><span class="o">.</span><span class="n">keys</span>
+<span class="n">bindi</span> <span class="o">=</span> <span class="no">Bindi</span><span class="o">.</span><span class="n">new</span> <span class="no">YAML</span>
+<span class="c1">#=&gt; #&lt;Redis client v3.0.2 for redis://127.0.0.1:6379/0&gt;</span>
+
+<span class="n">bindi</span><span class="o">.</span><span class="n">keys</span>
  <span class="c1">#=&gt; "state_gemstones"</span>
 
-<span class="no">Bindi</span><span class="o">[</span><span class="ss">:state_gemstones</span><span class="o">]</span>
+<span class="n">bindi</span><span class="o">[</span><span class="ss">:state_gemstones</span><span class="o">]</span>
  <span class="c1">#=&gt; #=&gt; {:alabama=&gt;"Star Blue Quartz", ...</span>
 </pre></div>
 
 <h3>Ruby Hash Methods</h3>
 
-<div class="highlight"><pre><span class="no">Bindi</span><span class="o">[</span><span class="ss">:key</span><span class="o">]</span> <span class="o">=</span> <span class="s1">'value'</span>
+<div class="highlight"><pre><span class="n">bindi</span><span class="o">[</span><span class="ss">:key</span><span class="o">]</span> <span class="o">=</span> <span class="s1">'value'</span>
  <span class="c1">#=&gt; "value"</span>
 
-<span class="no">Bindi</span><span class="o">[</span><span class="ss">:key</span><span class="o">]</span>
+<span class="n">bindi</span><span class="o">[</span><span class="ss">:key</span><span class="o">]</span>
  <span class="c1">#=&gt; "value"</span>
 
-<span class="no">Bindi</span><span class="o">.</span><span class="n">clear</span> <span class="c1"># Flushes entire DB</span>
+<span class="n">bindi</span><span class="o">.</span><span class="n">clear</span> <span class="c1"># Flushes entire DB</span>
 
-<span class="no">Bindi</span><span class="o">.</span><span class="n">delete</span> <span class="ss">:key</span>
+<span class="n">bindi</span><span class="o">.</span><span class="n">delete</span> <span class="ss">:key</span>
  <span class="c1">#=&gt; 1</span>
 
-<span class="no">Bindi</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">key</span><span class="o">|</span>
+<span class="n">bindi</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">key</span><span class="o">|</span>
   <span class="nb">puts</span> <span class="n">key</span>
 <span class="k">end</span>
 
-<span class="no">Bindi</span><span class="o">.</span><span class="n">empty?</span>
+<span class="n">bindi</span><span class="o">.</span><span class="n">empty?</span>
  <span class="c1">#=&gt; false</span>
 
-<span class="no">Bindi</span><span class="o">.</span><span class="n">inspect</span>
+<span class="n">bindi</span><span class="o">.</span><span class="n">inspect</span>
 
-<span class="no">Bindi</span><span class="o">.</span><span class="n">key?</span> <span class="ss">:nope</span>
+<span class="n">bindi</span><span class="o">.</span><span class="n">key?</span> <span class="ss">:nope</span>
  <span class="c1">#=&gt; false</span>
 
-<span class="no">Bindi</span><span class="o">.</span><span class="n">keys</span>
+<span class="n">bindi</span><span class="o">.</span><span class="n">keys</span>
  <span class="c1">#=&gt; "key"</span>
 </pre></div>
 
 <h3>Redis Helper Methods</h3>
 
-<div class="highlight"><pre><span class="no">Bindi</span><span class="o">.</span><span class="n">info</span>
+<div class="highlight"><pre><span class="n">bindi</span><span class="o">.</span><span class="n">info</span>
  <span class="c1">#=&gt; {"redis_version"=&gt;"2.4.15", ...</span>
 
-<span class="no">Bindi</span><span class="o">.</span><span class="n">inspect_redis</span>
+<span class="n">bindi</span><span class="o">.</span><span class="n">inspect_redis</span>
  <span class="c1">#=&gt; "#&lt;Redis client v2.2.2 connected to redis://127.0.0.1:6379 ..."</span>
 </pre></div>
 
