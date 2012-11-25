@@ -1,6 +1,6 @@
 # Bindi
 
-[Bindi](https://github.com/Havenwood/bindi) is a DSL for storing serializable Ruby Objects in [Redis](http://redis.io/) using [Ohm](http://ohm.keyvalue.org/) (Object-hash mapping gem for Redis).
+[Bindi](https://github.com/Havenwood/bindi) is a DSL for storing serializable Ruby Objects in [Redis](http://redis.io/) using [Ohm](http://ohm.keyvalue.org/).
 
 ## Installation
 
