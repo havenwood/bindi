@@ -1,6 +1,6 @@
 # Bindi
 
-[Bindi](https://github.com/Havenwood/bindi) is a DSL for storing marshallable Ruby Objects in [Redis](http://redis.io/) using [Ohm](http://ohm.keyvalue.org/) (Object-hash mapping gem for Redis).
+[Bindi](https://github.com/Havenwood/bindi) is a DSL for storing serializable Ruby Objects in [Redis](http://redis.io/) using [Ohm](http://ohm.keyvalue.org/) (Object-hash mapping gem for Redis).
 
 ## Installation
 
@@ -28,12 +28,13 @@ And start Redis:
 require 'bindi'
  #=> true
  
-bindi = Bindi.new YAML # Works with Marshal, YAML, JSON, etc.
+bindi = Bindi.new YAML # Choose between Marshal, YAML, JSON, etcetera for serializing.
+#=> #<Redis client v3.0.2 for redis://127.0.0.1:6379/0>
  
 bindi[:state_gemstones] = { alabama: 'Star Blue Quartz',
-                              alaska: 'Nephrite Jade', 
-							  arizona: 'Turquoise', 
-							  arkansas: 'Diamond' }
+                            alaska: 'Nephrite Jade', 
+                            arizona: 'Turquoise', 
+                            arkansas: 'Diamond' }
 							  
  #=> {:alabama=>"Star Blue Quartz", ...
 
@@ -45,7 +46,10 @@ Your Ruby Object is now stored in Redis.
 ```ruby
 require 'bindi'
  #=> true
- 
+
+bindi = Bindi.new YAML
+#=> #<Redis client v3.0.2 for redis://127.0.0.1:6379/0>
+
 bindi.keys
  #=> "state_gemstones"
  
