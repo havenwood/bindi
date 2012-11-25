@@ -27,11 +27,10 @@ And start Redis:
 ```ruby
 require 'bindi'
  #=> true
-
-Bindi.connect
- #=> nil
  
-Bindi[:state_gemstones] = { alabama: 'Star Blue Quartz',
+bindi = Bindi.new YAML # Works with Marshal, YAML, JSON, etc.
+ 
+bindi[:state_gemstones] = { alabama: 'Star Blue Quartz',
                               alaska: 'Nephrite Jade', 
 							  arizona: 'Turquoise', 
 							  arkansas: 'Diamond' }
@@ -47,50 +46,50 @@ Your Ruby Object is now stored in Redis.
 require 'bindi'
  #=> true
  
-Bindi.keys
+bindi.keys
  #=> "state_gemstones"
  
-Bindi[:state_gemstones]
+bindi[:state_gemstones]
  #=> #=> {:alabama=>"Star Blue Quartz", ...
 ```
 
 ### Ruby Hash Methods
 
 ```ruby
-Bindi[:key] = 'value'
+bindi[:key] = 'value'
  #=> "value"
 
-Bindi[:key]
+bindi[:key]
  #=> "value"
  
-Bindi.clear # Flushes entire DB
+bindi.clear # Flushes entire DB
 
-Bindi.delete :key
+bindi.delete :key
  #=> 1
  
-Bindi.each do |key|
+bindi.each do |key|
   puts key
 end
 
-Bindi.empty?
+bindi.empty?
  #=> false
 
-Bindi.inspect
+bindi.inspect
 
-Bindi.key? :nope
+bindi.key? :nope
  #=> false
  
-Bindi.keys
+bindi.keys
  #=> "key"
 ```
 
 ### Redis Helper Methods
 
 ```ruby
-Bindi.info
+bindi.info
  #=> {"redis_version"=>"2.4.15", ...
 
-Bindi.inspect_redis
+bindi.inspect_redis
  #=> "#<Redis client v2.2.2 connected to redis://127.0.0.1:6379 ..."
 ```
 
