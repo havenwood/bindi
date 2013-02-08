@@ -17,4 +17,7 @@ Gem::Specification.new do |gem|
   
   gem.add_development_dependency 'ohm'
   gem.add_runtime_dependency 'ohm'
+  
+  gem.signing_key = '/Users/shannonskipper/.gem/private/gem-private_key.pem'
+  gem.cert_chain  = ['/Users/shannonskipper/.gem/private/gem-public_cert.pem']
 end
