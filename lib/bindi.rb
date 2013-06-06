@@ -2,7 +2,7 @@ require 'ohm'
 require 'bindi/version'
 
 class Bindi
-  def initialize serializer
+  def initialize serializer = Marhsal
     @serializer = serializer
   end
   
