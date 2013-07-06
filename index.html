@@ -1,76 +1,56 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <title>bindi by havenwood</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <title>Bindi by Havenwood</title>
   </head>
-
   <body>
-    <div id="container">
-      <div class="inner">
+    <div class="wrapper">
+      <header>
+        <h1>bindi</h1>
+        <p>Store native Ruby objects in Redis.</p>
 
-        <header>
-          <h1>Bindi</h1>
-          <h2>Store native Ruby Objects in Redis using Ohm.</h2>
-        </header>
+        <p class="view"><a href="https://github.com/havenwood/bindi">View the Project on GitHub <small>havenwood/bindi</small></a></p>
 
-        <section id="downloads" class="clearfix">
-          <a href="https://github.com/Havenwood/bindi/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
-          <a href="https://github.com/Havenwood/bindi/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
-          <a href="https://github.com/Havenwood/bindi" id="view-on-github" class="button"><span>View on GitHub</span></a>
-        </section>
 
-        <hr>
+        <ul>
+          <li><a href="https://github.com/havenwood/bindi/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/havenwood/bindi/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/havenwood/bindi">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="bindi" class="anchor" href="#bindi"><span class="octicon octicon-link"></span></a>Bindi</h1>
 
-        <section id="main_content">
-          <h1>Bindi</h1>
+<p><a href="https://github.com/havenwood/bindi#readme">Bindi</a> makes it very, very simple to store native Ruby object in Redis!</p>
 
-<p><a href="https://github.com/Havenwood/bindi">Bindi</a> is a DSL for storing serializable Ruby Objects in <a href="http://redis.io/">Redis</a> using <a href="http://ohm.keyvalue.org/">Ohm</a>.</p>
+<p>Bindi provides an easy to use Hash-like syntax for serializing Ruby objects with Marshal, YAML or JSON, and then persisting to <a href="http://redis.io/">Redis</a> with the <a href="https://github.com/redis/redis-rb#readme">redis gem</a>.</p>
 
-<h2>Installation</h2>
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
 
-<p>Add this line to your application's Gemfile:</p>
-
-<pre><code>gem 'bindi'
-</code></pre>
-
-<p>Or install it yourself:</p>
-
-<pre><code>$ gem install bindi
-</code></pre>
-
-<p>Then install Redis:</p>
-
-<pre><code>$ brew install redis
-</code></pre>
-
-<p>And start Redis:</p>
-
-<pre><code>$ redis-server
-</code></pre>
-
-<h2>Usage</h2>
-
-<h3>The Basics</h3>
+<h3>
+<a name="the-basics" class="anchor" href="#the-basics"><span class="octicon octicon-link"></span></a>The Basics</h3>
 
 <div class="highlight"><pre><span class="nb">require</span> <span class="s1">'bindi'</span>
- <span class="c1">#=&gt; true</span>
+<span class="nb">require</span> <span class="s1">'yaml'</span>
 
 <span class="n">bindi</span> <span class="o">=</span> <span class="no">Bindi</span><span class="o">.</span><span class="n">new</span> <span class="no">YAML</span> <span class="c1"># Choose between Marshal, YAML, JSON, etcetera for serializing.</span>
 <span class="c1">#=&gt; #&lt;Redis client v3.0.2 for redis://127.0.0.1:6379/0&gt;</span>
 
-<span class="n">bindi</span><span class="o">[</span><span class="ss">:state_gemstones</span><span class="o">]</span> <span class="o">=</span> <span class="p">{</span> <span class="n">alabama</span><span class="p">:</span> <span class="s1">'Star Blue Quartz'</span><span class="p">,</span>
-                            <span class="n">alaska</span><span class="p">:</span> <span class="s1">'Nephrite Jade'</span><span class="p">,</span> 
-                            <span class="n">arizona</span><span class="p">:</span> <span class="s1">'Turquoise'</span><span class="p">,</span> 
-                            <span class="n">arkansas</span><span class="p">:</span> <span class="s1">'Diamond'</span> <span class="p">}</span>
+<span class="n">bindi</span><span class="o">[</span><span class="ss">:state_gemstones</span><span class="o">]</span> <span class="o">=</span> <span class="p">{</span> <span class="ss">alabama</span><span class="p">:</span> <span class="s1">'Star Blue Quartz'</span><span class="p">,</span>
+                            <span class="ss">alaska</span><span class="p">:</span> <span class="s1">'Nephrite Jade'</span><span class="p">,</span> 
+                            <span class="ss">arizona</span><span class="p">:</span> <span class="s1">'Turquoise'</span><span class="p">,</span> 
+                            <span class="ss">arkansas</span><span class="p">:</span> <span class="s1">'Diamond'</span> <span class="p">}</span>
 
  <span class="c1">#=&gt; {:alabama=&gt;"Star Blue Quartz", ...</span>
 
@@ -80,7 +60,6 @@
 <p>Your Ruby Object is now stored in Redis.</p>
 
 <div class="highlight"><pre><span class="nb">require</span> <span class="s1">'bindi'</span>
- <span class="c1">#=&gt; true</span>
 
 <span class="n">bindi</span> <span class="o">=</span> <span class="no">Bindi</span><span class="o">.</span><span class="n">new</span> <span class="no">YAML</span>
 <span class="c1">#=&gt; #&lt;Redis client v3.0.2 for redis://127.0.0.1:6379/0&gt;</span>
@@ -92,7 +71,8 @@
  <span class="c1">#=&gt; #=&gt; {:alabama=&gt;"Star Blue Quartz", ...</span>
 </pre></div>
 
-<h3>Ruby Hash Methods</h3>
+<h3>
+<a name="ruby-hash-methods" class="anchor" href="#ruby-hash-methods"><span class="octicon octicon-link"></span></a>Ruby Hash Methods</h3>
 
 <div class="highlight"><pre><span class="n">bindi</span><span class="o">[</span><span class="ss">:key</span><span class="o">]</span> <span class="o">=</span> <span class="s1">'value'</span>
  <span class="c1">#=&gt; "value"</span>
@@ -100,52 +80,89 @@
 <span class="n">bindi</span><span class="o">[</span><span class="ss">:key</span><span class="o">]</span>
  <span class="c1">#=&gt; "value"</span>
 
-<span class="n">bindi</span><span class="o">.</span><span class="n">clear</span> <span class="c1"># Flushes entire DB</span>
-
-<span class="n">bindi</span><span class="o">.</span><span class="n">delete</span> <span class="ss">:key</span>
- <span class="c1">#=&gt; 1</span>
-
-<span class="n">bindi</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">key</span><span class="o">|</span>
-  <span class="nb">puts</span> <span class="n">key</span>
-<span class="k">end</span>
-
-<span class="n">bindi</span><span class="o">.</span><span class="n">empty?</span>
- <span class="c1">#=&gt; false</span>
-
-<span class="n">bindi</span><span class="o">.</span><span class="n">inspect</span>
-
 <span class="n">bindi</span><span class="o">.</span><span class="n">key?</span> <span class="ss">:nope</span>
  <span class="c1">#=&gt; false</span>
 
 <span class="n">bindi</span><span class="o">.</span><span class="n">keys</span>
- <span class="c1">#=&gt; "key"</span>
+ <span class="c1">#=&gt; [:key]</span>
+
+<span class="n">bindi</span><span class="o">.</span><span class="n">delete</span> <span class="ss">:key</span>
+ <span class="c1">#=&gt; "value"</span>
+
+<span class="n">bindi</span><span class="o">.</span><span class="n">clear</span> <span class="c1"># Flushes entire DB</span>
+ <span class="c1">#=&gt; []</span>
+
+<span class="n">bindi</span><span class="o">.</span><span class="n">empty?</span>
+ <span class="c1">#=&gt; true</span>
 </pre></div>
 
-<h3>Redis Helper Methods</h3>
+<h3>
+<a name="redis-info" class="anchor" href="#redis-info"><span class="octicon octicon-link"></span></a>Redis Info</h3>
 
-<div class="highlight"><pre><span class="n">bindi</span><span class="o">.</span><span class="n">info</span>
- <span class="c1">#=&gt; {"redis_version"=&gt;"2.4.15", ...</span>
+<div class="highlight"><pre><span class="n">bindi</span>
+ <span class="c1">#=&gt; #&lt;Redis client v3.0.4 for redis://127.0.0.1:6379/0&gt;</span>
 
-<span class="n">bindi</span><span class="o">.</span><span class="n">inspect_redis</span>
- <span class="c1">#=&gt; "#&lt;Redis client v2.2.2 connected to redis://127.0.0.1:6379 ..."</span>
+<span class="n">bindi</span><span class="o">.</span><span class="n">info</span>
+ <span class="c1">#=&gt; {"redis_version"=&gt;"2.6.14",</span>
+ <span class="s2">"redis_git_sha1"</span><span class="o">=&gt;</span><span class="s2">"00000000"</span><span class="p">,</span>
+ <span class="s2">"redis_git_dirty"</span><span class="o">=&gt;</span><span class="s2">"0"</span><span class="p">,</span>
+ <span class="s2">"redis_mode"</span><span class="o">=&gt;</span><span class="s2">"standalone"</span><span class="p">,</span>
+ <span class="o">.</span><span class="n">.</span><span class="o">.</span><span class="p">}</span>
 </pre></div>
 
-<h2>Contributing</h2>
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<h3>
+<a name="install-bindi" class="anchor" href="#install-bindi"><span class="octicon octicon-link"></span></a>Install Bindi</h3>
+
+<pre><code>$ gem install bindi
+</code></pre>
+
+<h3>
+<a name="install-redis" class="anchor" href="#install-redis"><span class="octicon octicon-link"></span></a>Install Redis</h3>
+
+<p>If you don't already have Redis installed, you'll need to install it.</p>
+
+<h4>
+<a name="homebrew" class="anchor" href="#homebrew"><span class="octicon octicon-link"></span></a>Homebrew:</h4>
+
+<p><code>sudo apt-get install redis-server</code></p>
+
+<h4>
+<a name="apt-get" class="anchor" href="#apt-get"><span class="octicon octicon-link"></span></a>Apt-get:</h4>
+
+<p><code>brew install redis</code></p>
+
+<h4>
+<a name="build-from-source" class="anchor" href="#build-from-source"><span class="octicon octicon-link"></span></a>Build from source:</h4>
+
+<div class="highlight"><pre>wget http://download.redis.io/redis-stable.tar.gz
+tar xvzf redis-stable.tar.gz
+<span class="nb">cd </span>redis-stable
+make
+</pre></div>
+
+<p>And start Redis if it isn't configured to autostart:</p>
+
+<pre><code>$ redis-server
+</code></pre>
+
+<h2>
+<a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h2>
 
 <ol>
 <li>Fork it</li>
 <li>Commit your changes</li>
 <li>Pull request</li>
 </ol>
-        </section>
-
-        <footer>
-          Bindi is maintained by <a href="https://github.com/Havenwood">Havenwood</a><br>
-          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.
-        </footer>
-
-        
-      </div>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/havenwood">havenwood</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
     </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
   </body>
 </html>
