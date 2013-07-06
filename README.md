@@ -1,6 +1,8 @@
 # Bindi
 
-[Bindi](https://github.com/Havenwood/bindi) is a DSL for storing serializable Ruby Objects in [Redis](http://redis.io/) using [Ohm](http://ohm.keyvalue.org/).
+[Bindi](https://github.com/havenwood/bindi#readme) makes it very, very simple to store native Ruby object in Redis!
+
+Bindi provides an easy to use Hash-like syntax for serializing Ruby objects with Marshal, YAML or JSON, and then persisting to [Redis](http://redis.io/) with the [redis gem](https://github.com/redis/redis-rb#readme).
 
 ## Installation
 
@@ -26,8 +28,8 @@ And start Redis:
 
 ```ruby
 require 'bindi'
- #=> true
- 
+require 'yaml'
+
 bindi = Bindi.new YAML # Choose between Marshal, YAML, JSON, etcetera for serializing.
 #=> #<Redis client v3.0.2 for redis://127.0.0.1:6379/0>
  
@@ -45,7 +47,6 @@ Your Ruby Object is now stored in Redis.
 
 ```ruby
 require 'bindi'
- #=> true
 
 bindi = Bindi.new YAML
 #=> #<Redis client v3.0.2 for redis://127.0.0.1:6379/0>
@@ -65,36 +66,35 @@ bindi[:key] = 'value'
 
 bindi[:key]
  #=> "value"
- 
-bindi.clear # Flushes entire DB
-
-bindi.delete :key
- #=> 1
- 
-bindi.each do |key|
-  puts key
-end
-
-bindi.empty?
- #=> false
-
-bindi.inspect
 
 bindi.key? :nope
  #=> false
- 
+
 bindi.keys
- #=> "key"
+ #=> [:key]
+
+bindi.delete :key
+ #=> "value"
+
+bindi.clear # Flushes entire DB
+ #=> []
+
+bindi.empty?
+ #=> true
 ```
 
-### Redis Helper Methods
+### Redis Info
 
 ```ruby
-bindi.info
- #=> {"redis_version"=>"2.4.15", ...
+bindi
+ #=> #<Redis client v3.0.4 for redis://127.0.0.1:6379/0>
 
-bindi.inspect_redis
- #=> "#<Redis client v2.2.2 connected to redis://127.0.0.1:6379 ..."
+bindi.info
+ #=> {"redis_version"=>"2.6.14",
+ "redis_git_sha1"=>"00000000",
+ "redis_git_dirty"=>"0",
+ "redis_mode"=>"standalone",
+ ...}
 ```
 
 ## Contributing

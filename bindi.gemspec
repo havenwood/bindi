@@ -4,9 +4,9 @@ require File.expand_path('../lib/bindi/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ['Shannon Skipper']
   gem.email         = ['shannonskipper@gmail.com']
-  gem.description   = %q{A DSL for saving Ruby Objects to Redis.}
-  gem.summary       = %q{Bindi is a DSL that marshals Ruby Objects and saves them to Redis using Ohm.}
-  gem.homepage      = 'https://github.com/Havenwood/bindi'
+  gem.description   = %q{Persist your Ruby objects in Redis.}
+  gem.summary       = %q{Serialize and store Ruby object in Redis.}
+  gem.homepage      = 'https://github.com/havenwood/bindi#readme'
   gem.license       = 'MIT'
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
@@ -15,9 +15,6 @@ Gem::Specification.new do |gem|
   gem.require_paths = ['lib']
   gem.version       = Bindi::VERSION
   
-  gem.add_development_dependency 'ohm'
-  gem.add_runtime_dependency 'ohm'
-  
-  gem.signing_key = '/Users/shannonskipper/.gem/private/gem-private_key.pem'
-  gem.cert_chain  = ['/Users/shannonskipper/.gem/private/gem-public_cert.pem']
+  gem.add_development_dependency 'redis'
+  gem.add_runtime_dependency 'redis'
 end

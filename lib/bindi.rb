@@ -1,58 +1,50 @@
-require 'ohm'
-require 'bindi/version'
+require 'redis'
 
 class Bindi
-  def initialize serializer = Marhsal
+  def initialize serializer = Marshal
     @serializer = serializer
-  end
-  
-  def connect
-    Ohm.connect
+    @redis = Redis.new
   end
 
   def [] key
-    @serializer.load(Ohm.redis.get key)
+    @serializer.load(@redis.get key) if @redis.exists key
   end
 
   def []= key, value
-    Ohm.redis.set key, @serializer.dump(value)
+    @redis.set key, @serializer.dump(value)
   end
 
   def clear
-    Ohm.redis.flushdb
+    [] if @redis.flushdb == "OK"
   end
 
   def delete key
-    Ohm.redis.del key
-  end
-
-  def each
-    Ohm.redis.keys.each do
-      yield
+    if key? key
+      value = @serializer.load(@redis.get key)
+      @redis.del key
+      value
     end
   end
 
   def empty?
-    Ohm.redis.keys.empty?
+    @redis.keys.empty?
   end
 
   def info
-    Ohm.redis.info
-  end
-    
-  def inspect
-    Ohm.redis.inspect
+    @redis.info
   end
 
+  def inspect
+    @redis.inspect
+  end
   alias to_s inspect
 
   def key? key
-    Ohm.redis.exists key
+    @redis.exists key
   end
-
   alias has_key key?
 
   def keys
-    Ohm.redis.keys.map &:to_sym
+    @redis.keys.map &:to_sym
   end
 end
