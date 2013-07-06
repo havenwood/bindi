@@ -7,7 +7,7 @@ Gem::Specification.new do |gem|
   gem.description   = %q{A DSL for saving Ruby Objects to Redis.}
   gem.summary       = %q{Bindi is a DSL that marshals Ruby Objects and saves them to Redis using Ohm.}
   gem.homepage      = 'https://github.com/Havenwood/bindi'
-
+  gem.license       = 'MIT'
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
