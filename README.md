@@ -4,30 +4,6 @@
 
 Bindi provides an easy to use Hash-like syntax for serializing Ruby objects with Marshal, YAML or JSON, and then persisting to [Redis](http://redis.io/) with the [redis gem](https://github.com/redis/redis-rb#readme).
 
-## Installation
-### Install Bindi
-
-    $ gem install bindi
-
-### Install Redis
-If you don't already have Redis installed, you'll need to install it.
-
-Install with a package manager:
-    - apt: `sudo apt-get install redis-server`
-    - brew: `brew install redis`
-
-Or build from source:
-```bash
-wget http://download.redis.io/redis-stable.tar.gz
-tar xvzf redis-stable.tar.gz
-cd redis-stable
-make
-```
-
-And start Redis if it isn't configured to autostart:
- 
-    $ redis-server
-	
 ## Usage
 
 ### The Basics
@@ -102,6 +78,31 @@ bindi.info
  "redis_mode"=>"standalone",
  ...}
 ```
+## Installation
+### Install Bindi
+
+    $ gem install bindi
+
+### Install Redis
+If you don't already have Redis installed, you'll need to install it.
+
+#### Homebrew:
+`sudo apt-get install redis-server`
+
+#### Apt-get:
+`brew install redis`
+
+#### Build from source:
+```bash
+wget http://download.redis.io/redis-stable.tar.gz
+tar xvzf redis-stable.tar.gz
+cd redis-stable
+make
+```
+
+And start Redis if it isn't configured to autostart:
+ 
+    $ redis-server
 
 ## Contributing
 
