@@ -43,34 +43,21 @@ bindi.empty?
  #=> true
 ```
 
-### Redis Info
-
-```ruby
-bindi
- #=> #<Redis client v3.0.4 for redis://127.0.0.1:6379/0>
-
-bindi.info
- #=> {"redis_version"=>"2.6.14",
- "redis_git_sha1"=>"00000000",
- "redis_git_dirty"=>"0",
- "redis_mode"=>"standalone",
- ...}
-```
 ## Installation
-### Install Bindi
+
+Install Bindi:
 
     $ gem install bindi
 
-### Install Redis
-If you don't already have Redis installed, you'll need to install it.
+Dependencies:
 
-#### Apt-get:
-`sudo apt-get install redis-server`
+    - Redis
 
-#### Homebrew:
-`brew install redis`
+Install redis with apt-get: `sudo apt-get install redis-server`
 
-#### Build from source:
+Install redis with brew: `brew install redis`
+
+Build from source:
 ```bash
 wget http://download.redis.io/redis-stable.tar.gz
 tar xvzf redis-stable.tar.gz
@@ -87,3 +74,4 @@ And start Redis if it isn't configured to autostart:
 1. Fork it
 2. Commit your changes
 3. Pull request
+4: :cake:
