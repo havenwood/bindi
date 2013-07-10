@@ -10,18 +10,12 @@ Bindi provides an easy to use Hash-like syntax for serializing Ruby objects with
 
 ```ruby
 require 'bindi'
-require 'yaml'
 
-bindi = Bindi.new YAML # Choose between Marshal, YAML, JSON, etcetera for serializing.
+bindi = Bindi.new
 #=> #<Redis client v3.0.2 for redis://127.0.0.1:6379/0>
  
-bindi[:state_gemstones] = { alabama: 'Star Blue Quartz',
-                            alaska: 'Nephrite Jade', 
-                            arizona: 'Turquoise', 
-                            arkansas: 'Diamond' }
-							  
- #=> {:alabama=>"Star Blue Quartz", ...
-
+bindi[:state_gemstones] = {alabama: 'Star Blue Quartz',
+                                           alaska: 'Nephrite Jade'}
 exit
 ```
 
@@ -30,36 +24,20 @@ Your Ruby Object is now stored in Redis.
 ```ruby
 require 'bindi'
 
-bindi = Bindi.new YAML
+bindi = Bindi.new
 #=> #<Redis client v3.0.2 for redis://127.0.0.1:6379/0>
 
 bindi.keys
- #=> "state_gemstones"
+ #=> [:state_gemstones]
  
 bindi[:state_gemstones]
- #=> #=> {:alabama=>"Star Blue Quartz", ...
-```
-
-### Ruby Hash Methods
-
-```ruby
-bindi[:key] = 'value'
- #=> "value"
-
-bindi[:key]
- #=> "value"
+  #=> {:alabama=>"Star Blue Quartz", :alaska=>"Nephrite Jade"}
 
 bindi.key? :nope
  #=> false
 
-bindi.keys
- #=> [:key]
-
-bindi.delete :key
- #=> "value"
-
-bindi.clear # Flushes entire DB
- #=> []
+bindi.delete :state_gemstones
+ #=> {:alabama=>"Star Blue Quartz", :alaska=>"Nephrite Jade"}
 
 bindi.empty?
  #=> true
