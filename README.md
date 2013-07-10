@@ -15,7 +15,7 @@ bindi = Bindi.new
 #=> #<Redis client v3.0.2 for redis://127.0.0.1:6379/0>
  
 bindi[:state_gemstones] = {alabama: 'Star Blue Quartz',
-                                           alaska: 'Nephrite Jade'}
+                           alaska: 'Nephrite Jade'}
 exit
 ```
 
