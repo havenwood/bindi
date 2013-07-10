@@ -86,10 +86,10 @@ bindi.info
 ### Install Redis
 If you don't already have Redis installed, you'll need to install it.
 
-#### Homebrew:
+#### Apt-get:
 `sudo apt-get install redis-server`
 
-#### Apt-get:
+#### Homebrew:
 `brew install redis`
 
 #### Build from source:
