@@ -76,4 +76,3 @@ And start Redis if it isn't configured to autostart:
 1. Fork it
 2. Commit your changes
 3. Pull request
-4: :cake:
