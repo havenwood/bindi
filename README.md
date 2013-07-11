@@ -1,7 +1,7 @@
 # Bindi
-[Bindi](https://github.com/havenwood/bindi#readme) makes it quite simple to store native Ruby object in Redis!
+Persist your Ruby objects to [Redis](http://redis.io/)!
 
-Bindi provides a nice Hash-like syntax for serializing Ruby objects with Marshal, YAML or JSON, and then persisting to [Redis](http://redis.io/) with the [redis gem](https://github.com/redis/redis-rb#readme).
+Bindi provides a simple Hash-like syntax for serializing and storing Ruby objects using the [redis](https://github.com/redis/redis-rb#readme) gem. Serialize with Marshal, YAML, JSON or your serializer of choice (as long as it supports #dump and #load methods).
 
 ## Usage
 ```ruby
@@ -42,25 +42,21 @@ bindi.empty?
 ```
 
 ## Installation
-
 Install Bindi:
 
     $ gem install bindi
 
-Dependencies:
+Install Redis:
 
-    - Redis
+Brew package:
 
-#### brew
+    `brew install redis`
 
-`brew install redis`
+Apt-get package:
 
-#### apt
+    `sudo apt-get install redis-server`
 
-`sudo apt-get install redis-server`
-
-#### or source
-
+Or build from source:
 ```bash
 wget http://download.redis.io/redis-stable.tar.gz
 tar xvzf redis-stable.tar.gz
@@ -68,7 +64,7 @@ cd redis-stable
 make
 ```
 
-And start Redis if it isn't configured to autostart:
+Start Redis if it isn't running:
 
     $ redis-server
 
@@ -76,3 +72,4 @@ And start Redis if it isn't configured to autostart:
 1. Fork it
 2. Commit your changes
 3. Pull request
+4.  :cake: 
