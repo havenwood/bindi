@@ -42,11 +42,11 @@ bindi.empty?
 ```
 
 ## Installation
-Install Bindi:
+#### Install Bindi
 
     $ gem install bindi
 
-Install Redis:
+#### Install Redis
 
 Brew package:
 
