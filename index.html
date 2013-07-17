@@ -7,7 +7,9 @@
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -17,10 +19,7 @@
       <header>
         <h1>bindi</h1>
         <p>Store native Ruby objects in Redis.</p>
-
         <p class="view"><a href="https://github.com/havenwood/bindi">View the Project on GitHub <small>havenwood/bindi</small></a></p>
-
-
         <ul>
           <li><a href="https://github.com/havenwood/bindi/zipball/master">Download <strong>ZIP File</strong></a></li>
           <li><a href="https://github.com/havenwood/bindi/tarball/master">Download <strong>TAR Ball</strong></a></li>
@@ -31,111 +30,105 @@
         <h1>
 <a name="bindi" class="anchor" href="#bindi"><span class="octicon octicon-link"></span></a>Bindi</h1>
 
-<p><a href="https://github.com/havenwood/bindi#readme">Bindi</a> makes it very, very simple to store native Ruby object in Redis!</p>
+<p>Persist your Ruby objects to <a href="http://redis.io/">Redis</a>!</p>
 
-<p>Bindi provides an easy to use Hash-like syntax for serializing Ruby objects with Marshal, YAML or JSON, and then persisting to <a href="http://redis.io/">Redis</a> with the <a href="https://github.com/redis/redis-rb#readme">redis gem</a>.</p>
+<p>Bindi provides a simple Hash-like syntax for serializing and storing Ruby objects using the <a href="https://github.com/redis/redis-rb#readme">redis</a> gem. Serialize with Marshal, YAML, JSON or your serializer of choice (as long as it supports #dump and #load methods).</p>
 
 <h2>
 <a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
 
-<h3>
-<a name="the-basics" class="anchor" href="#the-basics"><span class="octicon octicon-link"></span></a>The Basics</h3>
-
 <div class="highlight"><pre><span class="nb">require</span> <span class="s1">'bindi'</span>
-<span class="nb">require</span> <span class="s1">'yaml'</span>
 
-<span class="n">bindi</span> <span class="o">=</span> <span class="no">Bindi</span><span class="o">.</span><span class="n">new</span> <span class="no">YAML</span> <span class="c1"># Choose between Marshal, YAML, JSON, etcetera for serializing.</span>
+<span class="n">bindi</span> <span class="o">=</span> <span class="no">Bindi</span><span class="o">.</span><span class="n">new</span> <span class="c1"># Marshal is the default serializer.</span>
 <span class="c1">#=&gt; #&lt;Redis client v3.0.2 for redis://127.0.0.1:6379/0&gt;</span>
 
-<span class="n">bindi</span><span class="o">[</span><span class="ss">:state_gemstones</span><span class="o">]</span> <span class="o">=</span> <span class="p">{</span> <span class="ss">alabama</span><span class="p">:</span> <span class="s1">'Star Blue Quartz'</span><span class="p">,</span>
-                            <span class="ss">alaska</span><span class="p">:</span> <span class="s1">'Nephrite Jade'</span><span class="p">,</span> 
-                            <span class="ss">arizona</span><span class="p">:</span> <span class="s1">'Turquoise'</span><span class="p">,</span> 
-                            <span class="ss">arkansas</span><span class="p">:</span> <span class="s1">'Diamond'</span> <span class="p">}</span>
-
- <span class="c1">#=&gt; {:alabama=&gt;"Star Blue Quartz", ...</span>
+<span class="n">bindi</span><span class="o">[</span><span class="ss">:state_gemstones</span><span class="o">]</span> <span class="o">=</span> <span class="p">{</span><span class="ss">alabama</span><span class="p">:</span> <span class="s1">'Star Blue Quartz'</span><span class="p">,</span>
+                           <span class="ss">alaska</span><span class="p">:</span> <span class="s1">'Nephrite Jade'</span><span class="p">}</span>
 
 <span class="nb">exit</span>
 </pre></div>
 
-<p>Your Ruby Object is now stored in Redis.</p>
+<p>Your Ruby Object is now stored in Redis:</p>
 
 <div class="highlight"><pre><span class="nb">require</span> <span class="s1">'bindi'</span>
 
-<span class="n">bindi</span> <span class="o">=</span> <span class="no">Bindi</span><span class="o">.</span><span class="n">new</span> <span class="no">YAML</span>
+<span class="n">bindi</span> <span class="o">=</span> <span class="no">Bindi</span><span class="o">.</span><span class="n">new</span>
 <span class="c1">#=&gt; #&lt;Redis client v3.0.2 for redis://127.0.0.1:6379/0&gt;</span>
 
-<span class="n">bindi</span><span class="o">.</span><span class="n">keys</span>
- <span class="c1">#=&gt; "state_gemstones"</span>
-
 <span class="n">bindi</span><span class="o">[</span><span class="ss">:state_gemstones</span><span class="o">]</span>
- <span class="c1">#=&gt; #=&gt; {:alabama=&gt;"Star Blue Quartz", ...</span>
+  <span class="c1">#=&gt; {:alabama=&gt;"Star Blue Quartz", :alaska=&gt;"Nephrite Jade"}</span>
 </pre></div>
 
 <h3>
-<a name="ruby-hash-methods" class="anchor" href="#ruby-hash-methods"><span class="octicon octicon-link"></span></a>Ruby Hash Methods</h3>
+<a name="additional-hash-like-methods" class="anchor" href="#additional-hash-like-methods"><span class="octicon octicon-link"></span></a>Additional Hash-like methods:</h3>
 
-<div class="highlight"><pre><span class="n">bindi</span><span class="o">[</span><span class="ss">:key</span><span class="o">]</span> <span class="o">=</span> <span class="s1">'value'</span>
- <span class="c1">#=&gt; "value"</span>
-
-<span class="n">bindi</span><span class="o">[</span><span class="ss">:key</span><span class="o">]</span>
- <span class="c1">#=&gt; "value"</span>
+<div class="highlight"><pre><span class="n">bindi</span><span class="o">.</span><span class="n">keys</span>
+ <span class="c1">#=&gt; [:state_gemstones]</span>
 
 <span class="n">bindi</span><span class="o">.</span><span class="n">key?</span> <span class="ss">:nope</span>
  <span class="c1">#=&gt; false</span>
 
-<span class="n">bindi</span><span class="o">.</span><span class="n">keys</span>
- <span class="c1">#=&gt; [:key]</span>
-
-<span class="n">bindi</span><span class="o">.</span><span class="n">delete</span> <span class="ss">:key</span>
- <span class="c1">#=&gt; "value"</span>
-
-<span class="n">bindi</span><span class="o">.</span><span class="n">clear</span> <span class="c1"># Flushes entire DB</span>
- <span class="c1">#=&gt; []</span>
+<span class="n">bindi</span><span class="o">.</span><span class="n">delete</span> <span class="ss">:state_gemstones</span>
+ <span class="c1">#=&gt; {:alabama=&gt;"Star Blue Quartz", :alaska=&gt;"Nephrite Jade"}</span>
 
 <span class="n">bindi</span><span class="o">.</span><span class="n">empty?</span>
  <span class="c1">#=&gt; true</span>
 </pre></div>
 
 <h3>
-<a name="redis-info" class="anchor" href="#redis-info"><span class="octicon octicon-link"></span></a>Redis Info</h3>
+<a name="alternative-serializers" class="anchor" href="#alternative-serializers"><span class="octicon octicon-link"></span></a>Alternative Serializers</h3>
 
-<div class="highlight"><pre><span class="n">bindi</span>
- <span class="c1">#=&gt; #&lt;Redis client v3.0.4 for redis://127.0.0.1:6379/0&gt;</span>
+<p>The default serializer is Marshal but you an alternative serializer can be specified when creating a new Bindi instance:</p>
 
-<span class="n">bindi</span><span class="o">.</span><span class="n">info</span>
- <span class="c1">#=&gt; {"redis_version"=&gt;"2.6.14",</span>
- <span class="s2">"redis_git_sha1"</span><span class="o">=&gt;</span><span class="s2">"00000000"</span><span class="p">,</span>
- <span class="s2">"redis_git_dirty"</span><span class="o">=&gt;</span><span class="s2">"0"</span><span class="p">,</span>
- <span class="s2">"redis_mode"</span><span class="o">=&gt;</span><span class="s2">"standalone"</span><span class="p">,</span>
- <span class="o">.</span><span class="n">.</span><span class="o">.</span><span class="p">}</span>
+<div class="highlight"><pre><span class="nb">require</span> <span class="s1">'bindi'</span>
+<span class="nb">require</span> <span class="s1">'json'</span>
+
+<span class="n">bindi</span> <span class="o">=</span> <span class="no">Bindi</span><span class="o">.</span><span class="n">new</span> <span class="no">JSON</span>
+<span class="c1">#=&gt; #&lt;Redis client v3.0.2 for redis://127.0.0.1:6379/0&gt;</span>
+</pre></div>
+
+<p>A serializer without #dump and #load methods, like <a href="http://msgpack.org">Message Pack</a>, can be used by implementing those methods:</p>
+
+<div class="highlight"><pre><span class="nb">require</span> <span class="s1">'bindi'</span>
+<span class="nb">require</span> <span class="s1">'msgpack'</span>
+
+<span class="k">module</span> <span class="nn">MessagePack</span>
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">dump</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">pack</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">load</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">unpack</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">bindi</span> <span class="o">=</span> <span class="no">Bindi</span><span class="o">.</span><span class="n">new</span> <span class="no">MessagePack</span>
+<span class="c1">#=&gt; #&lt;Redis client v3.0.4 for redis://127.0.0.1:6379/0&gt;</span>
 </pre></div>
 
 <h2>
 <a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
 
-<h3>
-<a name="install-bindi" class="anchor" href="#install-bindi"><span class="octicon octicon-link"></span></a>Install Bindi</h3>
+<h4>
+<a name="install-bindi" class="anchor" href="#install-bindi"><span class="octicon octicon-link"></span></a>Install Bindi</h4>
 
 <pre><code>$ gem install bindi
 </code></pre>
 
-<h3>
-<a name="install-redis" class="anchor" href="#install-redis"><span class="octicon octicon-link"></span></a>Install Redis</h3>
-
-<p>If you don't already have Redis installed, you'll need to install it.</p>
-
 <h4>
-<a name="homebrew" class="anchor" href="#homebrew"><span class="octicon octicon-link"></span></a>Homebrew:</h4>
+<a name="install-redis" class="anchor" href="#install-redis"><span class="octicon octicon-link"></span></a>Install Redis</h4>
 
-<p><code>sudo apt-get install redis-server</code></p>
+<p>Brew package:</p>
 
-<h4>
-<a name="apt-get" class="anchor" href="#apt-get"><span class="octicon octicon-link"></span></a>Apt-get:</h4>
+<pre><code>`brew install redis`
+</code></pre>
 
-<p><code>brew install redis</code></p>
+<p>Apt-get package:</p>
 
-<h4>
-<a name="build-from-source" class="anchor" href="#build-from-source"><span class="octicon octicon-link"></span></a>Build from source:</h4>
+<pre><code>`sudo apt-get install redis-server`
+</code></pre>
+
+<p>Or build from source:</p>
 
 <div class="highlight"><pre>wget http://download.redis.io/redis-stable.tar.gz
 tar xvzf redis-stable.tar.gz
@@ -143,7 +136,7 @@ tar xvzf redis-stable.tar.gz
 make
 </pre></div>
 
-<p>And start Redis if it isn't configured to autostart:</p>
+<p>Start Redis if it isn't running:</p>
 
 <pre><code>$ redis-server
 </code></pre>
@@ -155,14 +148,16 @@ make
 <li>Fork it</li>
 <li>Commit your changes</li>
 <li>Pull request</li>
+<li> <img class="emoji" title=":cake:" alt=":cake:" src="https://github.global.ssl.fastly.net/images/icons/emoji/cake.png" height="20" width="20" align="absmiddle">
+</li>
 </ol>
       </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/havenwood">havenwood</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
     </div>
-    <script src="javascripts/scale.fix.js"></script>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/havenwood">havenwood</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
     
   </body>
 </html>
