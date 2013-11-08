@@ -12,7 +12,6 @@ bindi = Bindi.new # Marshal is the default serializer.
  
 bindi[:state_gemstones] = {alabama: 'Star Blue Quartz',
                            alaska: 'Nephrite Jade'}
-
 exit
 ```
 
