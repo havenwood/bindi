@@ -45,6 +45,6 @@ class Bindi
   alias has_key key?
 
   def keys
-    @redis.keys.map &:to_sym
+    @redis.keys
   end
 end
