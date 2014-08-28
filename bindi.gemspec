@@ -14,7 +14,6 @@ Gem::Specification.new do |gem|
   gem.name          = 'bindi'
   gem.require_paths = ['lib']
   gem.version       = Bindi::VERSION
-  
-  gem.add_development_dependency 'redis'
+
   gem.add_runtime_dependency 'redis'
 end
